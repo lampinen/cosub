@@ -10,7 +10,7 @@ import logger, settings
 import boto.mturk.connection as connection
 import boto.mturk.question as question
 
-from boto.mturk.qualification import LocaleRequirement, PercentAssignmentsApprovedRequirement, Qualifications
+from boto.mturk.qualification import LocaleRequirement, PercentAssignmentsApprovedRequirement, Requirement, Qualifications
 from boto.mturk.connection import MTurkRequestError
 
 readline.parse_and_bind('set editing-mode emacs')
@@ -214,6 +214,9 @@ def create_hit(settings):
     if settings_quals["approval_percentage"]:
       hit_quals.add(PercentAssignmentsApprovedRequirement("GreaterThanOrEqualTo",
                                                           settings_quals["approval_percentage"]))
+
+    if settings_quals["custom"]:
+      hit_quals.add(Requirement(settings_quals["custom"]["QualificationTypeID"], settings_quals["custom"]["Comparator"],settings_quals["custom"]["IntegerValue"])) 
 
   prints(
     "Your settings are:",
