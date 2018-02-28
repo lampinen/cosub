@@ -215,7 +215,7 @@ def create_hit(settings):
       hit_quals.add(PercentAssignmentsApprovedRequirement("GreaterThanOrEqualTo",
                                                           settings_quals["approval_percentage"]))
 
-    if settings_quals["custom"]:
+    if "custom" in settings_quals and settings_quals["custom"]:
       hit_quals.add(Requirement(settings_quals["custom"]["QualificationTypeID"], settings_quals["custom"]["Comparator"],settings_quals["custom"]["IntegerValue"])) 
 
   prints(
